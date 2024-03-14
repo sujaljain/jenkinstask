@@ -4,49 +4,81 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                echo 'This stage installs all the required dependencies for the React project using npm.'
+                echo 'Initiating the dependencies installation for our React project through npm. This process ensures all necessary libraries and frameworks are available for development and testing.'
             }
         }
 
         stage('Unit Tests') {
             steps {
-                echo 'This stage runs unit tests for the React application using Jest to ensure the individual components function as expected.'
+                echo 'Executing unit tests using Jest. This critical stage validates the reliability of individual components within the React application, confirming they perform as intended.'
+            }
+            post {
+                success {
+                    emailext (
+                        subject: 'Success: Unit Tests Stage',
+                        body: 'The unit testing phase, facilitated by Jest, concluded successfully. All components are functioning within expected parameters.',
+                        to: 'sujal4845.be22@chitkara.edu.in'
+                    )
+                }
+                failure {
+                    emailext (
+                        subject: 'Failure: Unit Tests Stage',
+                        body: 'The unit testing phase encountered issues. Review the Jenkins logs for detailed insights and rectification measures.',
+                        to: 'sujal4845.be22@chitkara.edu.in'
+                    )
+                }
             }
         }
 
         stage('Code Analysis') {
             steps {
-                echo 'This stage analyzes the React codebase using ESLint to identify potential issues and ensure it adheres to defined coding standards and best practices.'
+                echo 'Analyzing the React codebase with ESLint to pinpoint issues and confirm adherence to our established coding practices. This ensures maintainability and quality of the code.'
             }
         }
 
         stage('Security Scan') {
             steps {
-                echo 'This stage performs a security scan on the React application using OWASP ZAP to identify potential vulnerabilities and security risks.'
+                echo 'Conducting a security audit on the React application with OWASP ZAP. This scan is pivotal in identifying and mitigating potential security vulnerabilities, ensuring robust application security.'
+            }
+            post {
+                success {
+                    emailext (
+                        subject: 'Success: Security Scan Stage',
+                        body: 'Security assessment through OWASP ZAP completed successfully, with no critical vulnerabilities detected.',
+                        to: 'sujal4845.be22@chitkara.edu.in'
+                    )
+                }
+                failure {
+                    emailext (
+                        subject: 'Failure: Security Scan Stage',
+                        body: 'Security assessment through OWASP ZAP identified critical issues. Immediate attention required. Consult the Jenkins logs for further details.',
+                        to: 'sujal4845.be22@chitkara.edu.in'
+                    )
+                }
             }
         }
 
         stage('Build') {
             steps {
-                echo 'This stage builds the React application for production deployment by running the "npm run build" command, which optimizes and bundles the application.'
+                echo 'Commencing the build process for the React application with the "npm run build" command. This step prepares the application for production by optimizing and bundling the code effectively.'
             }
         }
 
         stage('Deploy to Staging') {
             steps {
-                echo 'This stage deploys the built React application to a staging server, such as an AWS S3 bucket, using the AWS CLI for future testing and verification.'
+                echo 'Deploying the application to a staging environment on neclify. This stage allows us to test the application in an environment that closely resembles production, ensuring reliability and performance.'
             }
         }
 
         stage('Integration Tests on Staging') {
             steps {
-                echo 'This stage runs integration tests on the React application deployed to the staging environment using Jest to ensure the application functions as expected in a production-like environment.'
+                echo 'Running comprehensive integration tests on the staging deployment using Jest. This ensures all parts of the application interact correctly and perform well under production-like conditions.'
             }
         }
 
         stage('Deploy to Production') {
             steps {
-                echo 'This stage deploys the built React application to a production server, such as an AWS S3 bucket, using the AWS CLI, making it accessible to end-users.'
+                echo 'Finalizing the pipeline by deploying the React application to a production server on neclify. This makes the application available to our end-users, marking the culmination of our CI/CD process.'
             }
         }
     }
