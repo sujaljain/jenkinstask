@@ -17,14 +17,14 @@ pipeline {
                     emailext (
                         subject: 'Success: Unit Tests Stage',
                         body: 'The unit testing phase, facilitated by Jest, concluded successfully. All components are functioning within expected parameters.',
-                        to: 'sujal4845.be22@chitkara.edu.in'
+                        to: 'sujal4845.be22@chitkara.edu.in, anotherEmail@example.com' // Added second email address here
                     )
                 }
                 failure {
                     emailext (
                         subject: 'Failure: Unit Tests Stage',
                         body: 'The unit testing phase encountered issues. Review the Jenkins logs for detailed insights and rectification measures.',
-                        to: 'sujal4845.be22@chitkara.edu.in'
+                        to: 'sujal4845.be22@chitkara.edu.in, anotherEmail@example.com' // Added second email address here
                     )
                 }
             }
@@ -45,14 +45,14 @@ pipeline {
                     emailext (
                         subject: 'Success: Security Scan Stage',
                         body: 'Security assessment through OWASP ZAP completed successfully, with no critical vulnerabilities detected.',
-                        to: 'sujal4845.be22@chitkara.edu.in'
+                        to: 'sujal4845.be22@chitkara.edu.in, pranav4874.be22@chitkara.edu.in' // Added second email address here
                     )
                 }
                 failure {
                     emailext (
                         subject: 'Failure: Security Scan Stage',
                         body: 'Security assessment through OWASP ZAP identified critical issues. Immediate attention required. Consult the Jenkins logs for further details.',
-                        to: 'sujal4845.be22@chitkara.edu.in'
+                        to: 'sujal4845.be22@chitkara.edu.in, pranav4874.be22@chitkara.edu.in' // Added second email address here
                     )
                 }
             }
@@ -66,7 +66,7 @@ pipeline {
 
         stage('Deploy to Staging') {
             steps {
-                echo 'Deploying the application to a staging environment on neclify. This stage allows us to test the application in an environment that closely resembles production, ensuring reliability and performance.'
+                echo 'Deploying the application to a staging environment on Netlify. This stage allows us to test the application in an environment that closely resembles production, ensuring reliability and performance.'
             }
         }
 
@@ -78,7 +78,7 @@ pipeline {
 
         stage('Deploy to Production') {
             steps {
-                echo 'Finalizing the pipeline by deploying the React application to a production server on neclify. This makes the application available to our end-users, marking the culmination of our CI/CD process.'
+                echo 'Finalizing the pipeline by deploying the React application to a production server on Netlify. This makes the application available to our end-users, marking the culmination of our CI/CD process.'
             }
         }
     }
